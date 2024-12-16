@@ -1,23 +1,35 @@
-# Use the official Node.js 16 image as the base image
-FROM node:16
+# Stage 1: Build Stage
+FROM maven:3.8-openjdk-11 AS build
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json (or yarn.lock) to the container
-COPY package*.json ./
+# Install Git (Git is not included by default in Maven images)
+RUN apt-get update && apt-get install git -y
 
-# Install project dependencies
-RUN npm install
+# Set the working directory
+WORKDIR /app
 
-# Copy the rest of the application code to the container
-COPY . .
+# Clone the Git repository
+RUN git clone https://github.com/raja1928/java-onlinebookstore.git
 
-# Build the React app
-RUN npm run build
 
-# Expose the port that the app will run on (usually 3000 by default)
-EXPOSE 3000
+# Build the application using Maven (adjust the target if needed)
+WORKDIR /app/java-onlinebookstore
 
-# Start the React app when the container starts
-CMD [ "npm", "start" ]
+RUN mvn clean install
+
+# Stage 2: Final Stage (Using Tomcat)
+FROM tomcat:9-jdk17
+
+# Set the working directory in the Tomcat container
+WORKDIR /usr/local/tomcat/webapps
+RUN cp -r ../webapps.dist/* ./
+
+# Copy the WAR file from the build stage (adjust the WAR file name if needed)
+COPY --from=build /app/java-onlinebookstore/target/onlinebookstore.war ./onlinebookstore.war
+
+# Expose Tomcat's default HTTP port
+EXPOSE 8080
+
+# Start Tomcat (catalina.sh is the default entry point for Tomcat)
+CMD ["catalina.sh", "run"]

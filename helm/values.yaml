@@ -2,12 +2,12 @@ deployment:
   name: tetris
   replicaCount: 1
 image:
-  repository: 891543987898.dkr.ecr.ap-south-1.amazonaws.com/tetris
+  repository: 061039788053.dkr.ecr.us-east-1.amazonaws.com/raja1928/docker-tom
   tag: 1
-  containerPort: 3000
+  containerPort: 8080
 service:
   type: ClusterIP
-  clusterIPPort: 3000
+  clusterIPPort: 8080
 resource:
   cpu:
     requests: 0.1

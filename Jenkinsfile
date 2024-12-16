@@ -41,7 +41,7 @@ pipeline {
                 branch 'development'
             }
             steps {
-                kubernetesEKSHelmDeploy('$dockerImage', '$dockerTag', '$repoName', 'awsCred', 'us-east-2', 'opq', 'dev')
+                kubernetesEKSHelmDeploy('$dockerImage', '$dockerTag', '$repoName', 'awsCred', 'us-east-2', 'exciting-folk-wardrobe', 'dev')
             }
         }
 
@@ -51,7 +51,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                kubernetesEKSHelmDeploy('$dockerImage', '$dockerTag', '$repoName', 'awsCred', 'us-east-2', 'opq', 'uat')
+                kubernetesEKSHelmDeploy('$dockerImage', '$dockerTag', '$repoName', 'awsCred', 'us-east-2', 'exciting-folk-wardrobe', 'uat')
             }
         }
 

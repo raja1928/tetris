@@ -36,6 +36,7 @@ pipeline {
             }
         }
         stage('Kubernetes Deploy - DEV') {
+            agent { label 'K8s-master' }
             when {
                 branch 'development'
             }
@@ -44,7 +45,8 @@ pipeline {
             }
         }
 
-        stage('Kubernetes Deploy - UAT') {        
+        stage('Kubernetes Deploy - UAT') {  
+            agent { label 'K8s-master' }
             when {
                 branch 'master'
             }

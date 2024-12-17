@@ -2,7 +2,7 @@ deployment:
   name: tetris
   replicaCount: 1
 image:
-  repository: 061039788053.dkr.ecr.us-east-1.amazonaws.com/raja1928/docker-tom
+  repository: 061039788053.dkr.ecr.us-east-2.amazonaws.com/raja1928/docker-tom
   tag: 1
   containerPort: 8080
 service:

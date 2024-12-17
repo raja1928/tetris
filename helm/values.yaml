@@ -6,7 +6,7 @@ image:
   tag: 1
   containerPort: 8080
 service:
-  type: ClusterIP
+  type: NodePort
   clusterIPPort: 8080
 resource:
   cpu:

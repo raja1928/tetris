@@ -36,7 +36,6 @@ pipeline {
             }
         }
         stage('Kubernetes Deploy - DEV') {
-            agent { label 'K8s-master' }
             when {
                 branch 'development'
             }
@@ -45,8 +44,7 @@ pipeline {
             }
         }
 
-        stage('Kubernetes Deploy - UAT') {  
-            agent { label 'K8s-master' }
+        stage('Kubernetes Deploy - UAT') {        
             when {
                 branch 'master'
             }
@@ -54,6 +52,6 @@ pipeline {
                 kubernetesEKSHelmDeploy('$dockerImage', '$dockerTag', '$repoName', 'awsCred', 'us-east-2', 'raja', 'uat')
             }
         }
-
+       
     }
 }
